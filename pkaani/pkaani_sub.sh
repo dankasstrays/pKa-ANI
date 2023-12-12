@@ -6,5 +6,4 @@
 module purge
 ml Anaconda3 && source activate pkaani
 
-
 python pkaani_loop.py
