@@ -7,8 +7,8 @@ import numpy as np
 import csv
 import joblib 
 
-from pkaani.ani_descriptors import pdb_arrays,get_titratable,get_indices,get_desc_arrays
-from pkaani.ase_io_proteindatabank_mod import read_proteindatabank
+from ani_descriptors import pdb_arrays,get_titratable,get_indices,get_desc_arrays
+from ase_io_proteindatabank_mod import read_proteindatabank
 
 
 

@@ -6,8 +6,8 @@ import numpy as np
 
 from urllib.request import urlopen
 from io import StringIO
-from pkaani.pkaani import calculate_pka
-from pkaani.prep_pdb import prep_pdb
+from pkaani import calculate_pka
+from prep_pdb import prep_pdb
 
 def usage_pkaani():
     """
@@ -75,37 +75,38 @@ def main():
     pdbfiles=np.array(input_files)
   
     #first prepare PDB files for pkaani 
-    for inputpdb in pdbfiles:
-        pdbid=inputpdb.rsplit('.', 1)[0]
-        pdbfile=pdbid+".pdb"
-        file_exist=True
-        if not os.path.exists(pdbfile):
-            file_exist=False
-            base=os.path.basename(pdbfile)
-            dpdbid=base.rsplit('.', 1)[0]
-
-            print("File %s is not accessible" % pdbfile)
-            print("Downloading : http://www.rcsb.org/pdb/files/%s.pdb" % dpdbid)
-        
-            url = 'http://www.rcsb.org/pdb/files/%s.pdb' % dpdbid
-            
-            file = urlopen(url)
-            contents = file.read().decode('utf-8')
-            file.close()
-            file = StringIO(contents)
-
-            outfile=pdbfile
-            
-            with open(outfile, 'w') as f2:
-              for line in contents:
-                f2.write(line)
-                
-        prep_pdb(pdbfile)            
-        file_exist=True
+#    for inputpdb in pdbfiles:
+#        pdbid=inputpdb.rsplit('.', 1)[0]
+#        pdbfile=pdbid+".pdb"
+#        file_exist=True
+#        if not os.path.exists(pdbfile):
+#            file_exist=False
+#            base=os.path.basename(pdbfile)
+#            dpdbid=base.rsplit('.', 1)[0]
+#
+#            print("File %s is not accessible" % pdbfile)
+#            print("Downloading : http://www.rcsb.org/pdb/files/%s.pdb" % dpdbid)
+#        
+#            url = 'http://www.rcsb.org/pdb/files/%s.pdb' % dpdbid
+#            
+#            file = urlopen(url)
+#            contents = file.read().decode('utf-8')
+#            file.close()
+#            file = StringIO(contents)
+#
+#            outfile=pdbfile
+#            
+#            with open(outfile, 'w') as f2:
+#              for line in contents:
+#                f2.write(line)
+#                
+#        prep_pdb(pdbfile)            
+#        file_exist=True
                             
     #CALCULATER PKA
     pkadict=calculate_pka(pdbfiles,writefile=True)
 
+    file_exist = True
     #RENAME FILES PROPERLY
     for inputpdb in pdbfiles:
         pdbid=inputpdb.rsplit('.', 1)[0]
