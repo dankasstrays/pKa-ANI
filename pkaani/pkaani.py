@@ -59,6 +59,7 @@ def calculate_pka(pdbfiles,writefile=None):
         
         
         #read pdb, and convert to ani type
+        print(infile)
         atoms=read_proteindatabank(infile, read_arrays=True)
         res,res_no,a_type,a_sym,a_no,pos,chainid,type_atm = pdb_arrays(atoms)
       

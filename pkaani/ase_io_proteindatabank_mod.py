@@ -106,6 +106,7 @@ def read_proteindatabank(fileobj, index=-1, read_arrays=True):
     cell = None
     pbc = None
 
+    print(fileobj)
     def build_atoms():
         atoms = Atoms(symbols=symbols,
                       cell=cell, pbc=pbc,
@@ -140,6 +141,7 @@ def read_proteindatabank(fileobj, index=-1, read_arrays=True):
                 atoms.set_array(name, np.array(array))
         return atoms
 
+    print(fileobj)
     for line in fileobj.readlines():
         if line.startswith('CRYST1'):
             cellpar = [float(line[6:15]),  # a

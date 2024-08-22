@@ -71,6 +71,7 @@ def handle_arguments_pkaani():
         usage_pkaani()
         sys.exit(-1)
 
+    print(inp_file)
     return inp_file
 
 def main():
