@@ -1,4 +1,15 @@
-## INSTALLATION
+## INSTALLATION (using PyPI)
+
+Simply use the command `pip install pkaani`. The package requires ambertools which can be installed with the command:
+
+```bash
+conda install conda-forge::ambertools
+```
+
+
+## INSTALLATION (from source code)
+
+Navigate to this repository for the source code: https://github.com/isayevlab/pKa-ANI/tree/main
 
 Prior to the installation of pKa-ANI, users should make sure they have installed conda.
 
