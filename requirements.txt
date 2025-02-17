@@ -1,0 +1,9 @@
+numpy
+scipy
+torchani==2.2.0
+torch==1.10.0  # or another CPU-specific version
+scikit-learn==1.0.2
+ase
+joblib
+setuptools==58.2.0
+
