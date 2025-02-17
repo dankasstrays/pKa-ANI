@@ -31,7 +31,8 @@ def upload_file():
 	if pka is not None:
 		os.remove(file_path)
 
-	return str(pka)
+    for key in pka:
+	    return str(pka[key])
 
 if __name__ == '__main__':
 	app.run(debug=True)
