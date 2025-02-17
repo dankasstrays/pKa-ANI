@@ -27,5 +27,5 @@ lark-parser
 MarkupSafe
 matplotlib
 mpmath
-munkres==1
+munkres==1.1.4
 
