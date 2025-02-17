@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 import os
 from pkaani.pkaani import calculate_pka
-from pkaani.prep_pdb import prep_pdb
 
 app = Flask(__name__)
 
@@ -27,7 +26,6 @@ def upload_file():
     file_path = os.path.join(UPLOAD_FOLDER, file.filename)
     file.save(file_path)
 
-    prep_pdb(file_path)
     pka = calculate_pka([file_path])
     
     if pka is not None:
