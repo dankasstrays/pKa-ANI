@@ -9,10 +9,10 @@ dependencies:
   - numpy
   - scipy
   - pytorch
-  - torchani[version='=2.2.0']
-  - scikit-learn[version='=1.0.2']
+  - torchani==2.2.0
+  - scikit-learn==1.0.2
   - ase
   - joblib
   - ambertools
-  - setuptools[version='=58.2.0']
+  - setuptools==58.2.0
   - gunicorn 
