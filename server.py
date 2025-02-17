@@ -31,7 +31,7 @@ def upload_file():
     if pka is not None:
         os.remove(file_path)
 
-    return jsonify({"filename": file.filename, "pkaDict": str(pka)})
+	return str(pka)
 
 if __name__ == '__main__':
     app.run(debug=True)
