@@ -1,7 +1,7 @@
 numpy
 scipy
 torchani==2.2.0
-torch==1.10.0  # or another CPU-specific version
+http://download.pytorch.org/whl/cpu/torch-1.10.2%2Bcpu-cp39-cp39-linux_x86_64.whl
 scikit-learn==1.0.2
 ase
 joblib
