@@ -30,10 +30,6 @@ def upload_file():
     
     if pka is not None:
         os.remove(file_path)
-        base_name=file.filename.rsplit('.', 1)[0]
-        pdb_cp=base_name+"_0.pdb"
-        copy = os.path.join(UPLOAD_FOLDER, pdb_cp)
-        os.remove(copy)
 
     return jsonify({"filename": file.filename, "pkaDict": str(pka)})
 
