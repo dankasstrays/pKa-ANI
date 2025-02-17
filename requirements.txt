@@ -1,4 +1,5 @@
 numpy
+Flask
 gunicorn
 scipy
 torchani==2.2.0
