@@ -11,28 +11,28 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 # Root route
 @app.route('/')
 def home():
-    return "Your app is successfully deployed and running!"
+	return "Your app is successfully deployed and running!"
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    if 'file' not in request.files:
-	    return jsonify({"error": "No file part"}), 400
-    
-    file = request.files['file']
+	if 'file' not in request.files:
+		return jsonify({"error": "No file part"}), 400
+	
+	file = request.files['file']
 
-    if file.filename == '':
-	    return jsonify({"error": "No selected file"}), 400
+	if file.filename == '':
+		return jsonify({"error": "No selected file"}), 400
 
-    file_path = os.path.join(UPLOAD_FOLDER, file.filename)
-    file.save(file_path)
+	file_path = os.path.join(UPLOAD_FOLDER, file.filename)
+	file.save(file_path)
 
-    pka = calculate_pka([file_path])
-    
-    if pka is not None:
-        os.remove(file_path)
+	pka = calculate_pka([file_path])
+	
+	if pka is not None:
+		os.remove(file_path)
 
 	return str(pka)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+	app.run(debug=True)
 
