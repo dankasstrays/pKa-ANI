@@ -3,7 +3,7 @@ import os
 from pkaani.pkaani import calculate_pka
 from pkaani import prep_pdb
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 # Ensure the upload folder exists
 UPLOAD_FOLDER = "uploads"
@@ -12,12 +12,12 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 # Root route
 
 
-@app.route('/')
+@application.route('/')
 def home():
-    return "Your app is successfully deployed and running!"
+    return "Your application is successfully deployed and running!"
 
 
-@app.route('/upload', methods=['POST'])
+@application.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
         return jsonify({"error": "No file part"}), 400
@@ -47,5 +47,5 @@ def upload_file():
         return str(pka[key])
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    application.run(debug=True)
 
