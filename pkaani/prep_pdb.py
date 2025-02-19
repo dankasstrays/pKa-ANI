@@ -4,9 +4,6 @@ import sys as sys
 import subprocess as sp
 import shutil
 
-from parmed.tools import addPDB,parmout
-from parmed.amber import AmberParm
-
 #to download pdb file if not exist
 from urllib.request import urlopen
 from io import StringIO
