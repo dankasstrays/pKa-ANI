@@ -12,10 +12,10 @@ from pkaani.ase_io_proteindatabank_mod import read_proteindatabank
 
 
 
-def calculate_pka(pdbfiles, ani, device, features, models, writefile=None):
+def calculate_pka(pdbfiles, ani, device, joblib_features, joblib_models, writefile=None):
 
 
-    pkaressize=0
+    pkaressize=0s
     pkadict={}         
 
     for fpdb in pdbfiles:
@@ -121,26 +121,27 @@ def calculate_pka(pdbfiles, ani, device, features, models, writefile=None):
                
                ani_descriptors,features=get_desc_arrays(ani,species_coordinates,aev,res_acti,res_aevi,a_symbols,a_type)
 
+               
                if(lres=='GLU'):
                   ani_descriptors_model=[] 
-                  checklist=features["GLU"]
-                  model=models["GLU"]
+                  checklist=joblib_features["GLU"]
+                  model=joblib_models["GLU"]
                if(lres=='ASP'):
                   ani_descriptors_model=[]
-                  checklist=features["ASP"]
-                  model=models["ASP"]
+                  checklist=joblib_features["ASP"]
+                  model=joblib_models["ASP"]
                if(lres=='LYS'):
                   ani_descriptors_model=[]
-                  checklist=features["LYS"]
-                  model=models["LYS"]
+                  checklist=joblib_features["LYS"]
+                  model=joblib_models["LYS"]
                if(lres=='HIS' or lres=='HID' or lres=='HIE'):
                   ani_descriptors_model=[]
-                  checklist=features["HIS"]
-                  model=models["HIS"]
+                  checklist=joblib_features["HIS"]
+                  model=joblib_models["HIS"]
                if(lres=='TYR'):
                   ani_descriptors_model=[]
-                  checklist=features["TYR"]
-                  model=models["TYR"]
+                  checklist=joblib_features["TYR"]
+                  model=joblib_models["TYR"]
     
     
                for i,fl in enumerate(features):

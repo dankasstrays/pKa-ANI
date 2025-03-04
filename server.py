@@ -32,7 +32,7 @@ his_model=joblib.load(os.path.join(os.path.dirname(__file__),'pkaani/models/HIS_
 lys_model=joblib.load(os.path.join(os.path.dirname(__file__),'pkaani/models/LYS_ani2x_FINAL_MODEL_F25.joblib'))
 tyr_model=joblib.load(os.path.join(os.path.dirname(__file__),'pkaani/models/TYR_ani2x_FINAL_MODEL_F25.joblib'))
 
-features = {
+joblib_features = {
     "TYR": tyr_features,
     "ASP": asp_features,
     "GLU": glu_features,
@@ -40,7 +40,7 @@ features = {
     "HIS": his_features
 }
 
-models = {
+joblib_models = {
     "TYR": tyr_model,
     "ASP": asp_model,
     "GLU": glu_model,
@@ -74,7 +74,7 @@ def upload_file():
     file.save(file_path)
 
     prep_pdb(file_path)
-    pka = calculate_pka([file_path], ani, device, features, models)
+    pka = calculate_pka([file_path], ani, device, joblib_features,joblib_models)
 
     if pka is not None:
         os.remove(file_path)
