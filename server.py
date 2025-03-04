@@ -2,6 +2,9 @@ from flask import Flask, request, jsonify
 import os
 from pkaani.pkaani import calculate_pka
 from pkaani import prep_pdb
+import torch
+import torchani
+import joblib 
 
 application = Flask(__name__)
 
