@@ -73,7 +73,7 @@ def upload_file():
     file_path = os.path.join(UPLOAD_FOLDER, file.filename)
     file.save(file_path)
 
-    prep_pdb(file_path)
+    #prep_pdb(file_path)
     pka = calculate_pka([file_path], ani, device, joblib_features,joblib_models)
 
     if pka is not None:
