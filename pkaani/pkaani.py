@@ -12,12 +12,12 @@ from pkaani.ase_io_proteindatabank_mod import read_proteindatabank
 
 
 
-def calculate_pka(pdbfiles, ani, writefile=None):
+def calculate_pka(pdbfiles, ani, device, features, models, writefile=None):
 
 
     pkaressize=0
     pkadict={}         
-        
+
     for fpdb in pdbfiles:
         print('Calculating pKa for %s' % fpdb)    
 
@@ -120,29 +120,10 @@ def calculate_pka(pdbfiles, ani, writefile=None):
       
                
                ani_descriptors,features=get_desc_arrays(ani,species_coordinates,aev,res_acti,res_aevi,a_symbols,a_type)
-    
-    
-               checklist=[]
-               if(lres=='GLU'):
-                  ani_descriptors_model=[] 
-                  checklist=glu_features
-                  model=glu_model
-               if(lres=='ASP'):
-                  ani_descriptors_model=[]
-                  checklist=asp_features
-                  model=asp_model
-               if(lres=='LYS'):
-                  ani_descriptors_model=[]
-                  checklist=lys_features
-                  model=lys_model
-               if(lres=='HIS' or lres=='HID' or lres=='HIE'):
-                  ani_descriptors_model=[]
-                  checklist=his_features
-                  model=his_model
-               if(lres=='TYR'):
-                  ani_descriptors_model=[]
-                  checklist=tyr_features
-                  model=tyr_model
+
+               ani_descriptors_model=[] 
+               checklist=features[lres]
+               model=models[lres]
     
     
                for i,fl in enumerate(features):
