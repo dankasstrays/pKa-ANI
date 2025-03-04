@@ -11,6 +11,31 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # Root route
 
+# device to run the training
+device = torch.device('cpu')
+
+print("Loading pKa-ANI Models and ANI-2x...")
+#FEATURES
+tyr_features=joblib.load(os.path.join(os.path.dirname(__file__),'pkaani/models/FTYR.joblib'))
+asp_features=joblib.load(os.path.join(os.path.dirname(__file__),'pkaani/models/FASP.joblib'))
+glu_features=joblib.load(os.path.join(os.path.dirname(__file__),'pkaani/models/FGLU.joblib'))
+lys_features=joblib.load(os.path.join(os.path.dirname(__file__),'pkaani/models/FLYS.joblib'))
+his_features=joblib.load(os.path.join(os.path.dirname(__file__),'pkaani/models/FHIS.joblib'))
+
+#MODELS
+asp_model=joblib.load(os.path.join(os.path.dirname(__file__),'pkaani/models/ASP_ani2x_FINAL_MODEL_F100.joblib'))
+glu_model=joblib.load(os.path.join(os.path.dirname(__file__),'pkaani/models/GLU_ani2x_FINAL_MODEL_F75.joblib'))
+his_model=joblib.load(os.path.join(os.path.dirname(__file__),'pkaani/models/HIS_ani2x_FINAL_MODEL_F100.joblib'))
+lys_model=joblib.load(os.path.join(os.path.dirname(__file__),'pkaani/models/LYS_ani2x_FINAL_MODEL_F25.joblib'))
+tyr_model=joblib.load(os.path.join(os.path.dirname(__file__),'pkaani/models/TYR_ani2x_FINAL_MODEL_F25.joblib'))
+
+#######################################################################        
+#call ani
+
+ani = torchani.models.ANI2x(periodic_table_index=True)
+print('Finished Loading.')
+
+
 
 @application.route('/')
 def home():
@@ -31,7 +56,7 @@ def upload_file():
     file.save(file_path)
 
     prep_pdb(file_path)
-    pka = calculate_pka([file_path])
+    pka = calculate_pka([file_path], ani)
 
     if pka is not None:
         os.remove(file_path)
