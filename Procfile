@@ -1,2 +1,2 @@
-web: gunicorn -w 2 -b 0.0.0.0:8000 server:application
+web: gunicorn server:application
 
