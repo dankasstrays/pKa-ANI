@@ -15,7 +15,7 @@ from pkaani.ase_io_proteindatabank_mod import read_proteindatabank
 def calculate_pka(pdbfiles, ani, device, joblib_features, joblib_models, writefile=None):
 
 
-    pkaressize=0s
+    pkaressize=0
     pkadict={}         
 
     for fpdb in pdbfiles:
