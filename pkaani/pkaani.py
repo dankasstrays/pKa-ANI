@@ -121,9 +121,26 @@ def calculate_pka(pdbfiles, ani, device, features, models, writefile=None):
                
                ani_descriptors,features=get_desc_arrays(ani,species_coordinates,aev,res_acti,res_aevi,a_symbols,a_type)
 
-               ani_descriptors_model=[] 
-               checklist=features[lres]
-               model=models[lres]
+               if(lres=='GLU'):
+                  ani_descriptors_model=[] 
+                  checklist=features["GLU"]
+                  model=models["GLU"]
+               if(lres=='ASP'):
+                  ani_descriptors_model=[]
+                  checklist=features["ASP"]
+                  model=models["ASP"]
+               if(lres=='LYS'):
+                  ani_descriptors_model=[]
+                  checklist=features["LYS"]
+                  model=models["LYS"]
+               if(lres=='HIS' or lres=='HID' or lres=='HIE'):
+                  ani_descriptors_model=[]
+                  checklist=features["HIS"]
+                  model=models["HIS"]
+               if(lres=='TYR'):
+                  ani_descriptors_model=[]
+                  checklist=features["TYR"]
+                  model=models["TYR"]
     
     
                for i,fl in enumerate(features):
