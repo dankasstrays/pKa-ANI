@@ -194,3 +194,102 @@ def calculate_pka(pdbfiles,writefile=None):
 
     return pkadict
        
+
+
+def calculate_charge_at_ph(pdb_file, pka_results=None, ph=7.0,
+                                     n_terminus_pka=8.0, c_terminus_pka=3.2,
+                                     arg_pka=12.5, cys_pka=8.3):
+    """
+    Calculate net charge including all titratable residues from PDB structure.
+    Includes ARG and CYS which pKa-ANI doesn't predict.
+    
+    Args:
+        pdb_file: Path to PDB file
+        pka_results: pKa predictions from calculate_pka (optional, uses defaults if None)
+        ph: pH value
+        n_terminus_pka: pKa of N-terminus
+        c_terminus_pka: pKa of C-terminus
+        arg_pka: pKa of arginine (default 12.5)
+        cys_pka: pKa of cysteine (default 8.3)
+    
+    Returns:
+        float: Net charge at specified pH
+    """
+    from .ase_io_proteindatabank_mod import read_proteindatabank
+    
+    # Read PDB structure
+    atoms = read_proteindatabank(pdb_file)
+    resnames = atoms.arrays['residuenames']
+    resnums = atoms.arrays['residuenumbers']
+    atomtypes = atoms.arrays['atomtypes']
+    chainids = atoms.arrays['chainid']
+    type_atm = atoms.arrays['type_atm']
+    
+    # Get unique residues (only ATOM records)
+    unique_residues = {}
+    for i, atype in enumerate(atomtypes):
+        if type_atm[i].strip() == 'ATOM':
+            key = (chainids[i].strip(), str(resnums[i]).strip())
+            if key not in unique_residues:
+                unique_residues[key] = resnames[i].strip()
+    
+    # Get pKa values if provided
+    pka_dict = {}
+    if pka_results is not None:
+        if isinstance(next(iter(pka_results.keys())), str):
+            # Full results dict
+            pdb_key = next(iter(pka_results.keys()))
+            pka_dict = pka_results[pdb_key]
+        else:
+            pka_dict = pka_results
+    
+    # Define charge types and default pKa values
+    residue_info = {
+        'ASP': {'charge': -1, 'default_pka': 3.9},
+        'GLU': {'charge': -1, 'default_pka': 4.3},
+        'TYR': {'charge': -1, 'default_pka': 10.1},
+        'LYS': {'charge': +1, 'default_pka': 10.5},
+        'HIS': {'charge': +1, 'default_pka': 6.0},
+        'HID': {'charge': +1, 'default_pka': 6.0},
+        'HIE': {'charge': +1, 'default_pka': 6.0},
+        'ARG': {'charge': +1, 'default_pka': arg_pka},   # Not in pKa-ANI
+        'CYS': {'charge': -1, 'default_pka': cys_pka},   # Not in pKa-ANI
+    }
+    
+    total_charge = 0.0
+    
+    # Calculate charge for each residue
+    for res_key, resname in unique_residues.items():
+        if resname not in residue_info:
+            continue
+        
+        info = residue_info[resname]
+        charge_type = info['charge']
+        
+        # Get pKa from predictions or use default
+        if res_key in pka_dict and isinstance(pka_dict[res_key], tuple):
+            _, pka_value = pka_dict[res_key]
+        else:
+            pka_value = info['default_pka']
+        
+        # Henderson-Hasselbalch
+        q_dpka = charge_type * (pka_value - ph)
+        conc_ratio = 10**q_dpka
+        residue_charge = charge_type * (conc_ratio / (1.0 + conc_ratio))
+        total_charge += residue_charge
+    
+    # Count chains (N and C termini)
+    chains = set(key[0] for key in unique_residues.keys())
+    num_chains = len(chains)
+    
+    # N-terminus charges
+    q_dpka_n = 1 * (n_terminus_pka - ph)
+    n_term_charge = 1 * (10**q_dpka_n / (1.0 + 10**q_dpka_n))
+    total_charge += n_term_charge * num_chains
+    
+    # C-terminus charges
+    q_dpka_c = -1 * (c_terminus_pka - ph)
+    c_term_charge = -1 * (10**q_dpka_c / (1.0 + 10**q_dpka_c))
+    total_charge += c_term_charge * num_chains
+    
+    return total_charge
