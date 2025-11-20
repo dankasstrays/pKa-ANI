@@ -5,6 +5,7 @@ The package requires ambertools which can be installed as given below (only work
 
 ```bash
 conda create -n pkaani python=3.13
+conda activate pkaani
 conda install conda-forge::ambertools
 ```
 
