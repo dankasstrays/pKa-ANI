@@ -1,10 +1,10 @@
 ## INSTALLATION (using PyPI)
 
 
-The package requires ambertools which can be installed with the command:
+The package requires ambertools which can be installed as given below (only works with Python versions <3.14)
 
 ```bash
-conda create -n pkaani 
+conda create -n pkaani python=3.13
 conda install conda-forge::ambertools
 ```
 
@@ -27,7 +27,7 @@ pKas = calculate_pkaani(["1brs.pdb","6oge_de.pdb"])
 
 ## INSTALLATION (from source code)
 
-Navigate to this repository for the source code: https://github.com/isayevlab/pKa-ANI/tree/main
+Navigate to this repository for the source code for this pyPI upload: https://github.com/adnaksskanda/pKa-ANI/tree/pyPI_upload
 
 Prior to the installation of pKa-ANI, users should make sure they have installed conda.
 
