@@ -6,7 +6,7 @@ from setuptools import find_packages
 from distutils.core import setup
 
 setup(name='pkaani',
-      version="0.1.10",
+      version="0.1.11",
       description="A Python package to calculate pKa values for proteins",
       long_description=open('README.md').read(),
       long_description_content_type="text/markdown",
