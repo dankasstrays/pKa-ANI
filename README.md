@@ -1,21 +1,13 @@
 ## INSTALLATION (using PyPI)
 
 
-The package requires ambertools which can be installed as given below (only works with Python versions <3.14)
-
-```bash
-conda create -n pkaani python=3.13
-conda activate pkaani
-conda install conda-forge::ambertools
-```
-
-Then, simply use the command below:
+If you would like to use pKa-ANI in a python script, simply use the command below:
 
 ```bash
 pip install pkaani
 ```
 
-## Python script usage
+## **Python script usage**
 The snippet below shows how to use the `calculate_pka` function within a python script - the input argument is a list of strings which are PDB file names in the working directory. Given a list of PDBs titled "1brs.pdb" and "6oge_de.pdb":
 
 ```python
@@ -24,51 +16,22 @@ from pkaani.pkaani import calculate_pka as calculate_pkaani
 pKas = calculate_pkaani(["1brs.pdb","6oge_de.pdb"])
 ```
 
+## **Command line usage**
+Note that command line usage (e.g. `pkaani -i 1FDL.pdb` on the command line) will not work with the simple ``pip`` install given above.  
 
+Command line usage performs energy minimization on the structure before the pKa calculation, which requires ambertools and can be installed as given below (only works with Python versions <3.14)
 
-## INSTALLATION (from source code)
-
-Navigate to this repository for the source code for this pyPI upload: https://github.com/adnaksskanda/pKa-ANI/tree/pyPI_upload
-
-Prior to the installation of pKa-ANI, users should make sure they have installed conda.
-
-To install pKa-ANI, navigate to the directory of the source that you've downloaded and;
-
-```bash     
-conda env create -f pkaani_env.yaml
-```
-This will create a conda environment named `pkaani` and install all required packages.
-After the environment is created, activate the environment and install the package.
-   
-```bash    
-conda activate pkaani 
-pip install .
+```bash
+conda create -n pkaani python=3.13
+conda activate pkaani
+conda install conda-forge::ambertools
 ```
 
-### **PREREQUISITES:**
+**Note that this necessitates a numpy version earlier than 2.0**, so if you are running into a numpy error use the following command to alleviate it:
 
-* miniconda/anaconda
-
-If `pkaani_env.yaml` is not used, users should make sure the following packages are installed.
-* python>=3.10
-* numpy
-* scipy
-* pytorch
-* torchani==2.2.0
-* scikit-learn==1.6.1
-* ase
-* joblib
-* ambertools
-* setuptools
-		
-## **USAGE**
-
-pKa-ANI requires PDB files to have H atoms that are added with default ionization states of residues: ASP, GLU, LYS, TYR, HIE. 
-
-Due to this reason, input PDB file(s) are prepared before the calculation of pKa values (output PDB file __'PDBID_pkaani.pdb'__). 
-
-__We would like to warn users, that our models are trained to predict pKa values for apo-proteins. 
-Due to this, any residue that is not an aminoacid is removed from PDB file(s) during the preparation.__
+```bash
+pip install "numpy<2"
+```
 
 
 ### Example command line usages:
@@ -105,6 +68,55 @@ pkaani -i path_to_file/1BNZ,path_to_file/1E8L
     can also be given as path_to_file/PDBFILE. Multiple PDB files can be given 
     by using "," as separator (i.e. pkaani -i 1BNZ,1E8L).
 ```				 
+
+
+
+## INSTALLATION (from source code)
+
+Navigate to this repository for the source code for this pyPI upload: https://github.com/adnaksskanda/pKa-ANI/tree/pyPI_upload
+
+Prior to the installation of pKa-ANI, users should make sure they have installed conda.
+
+To install pKa-ANI, navigate to the directory of the source that you've downloaded and;
+
+```bash     
+conda env create -f pkaani_env.yaml
+```
+This will create a conda environment named `pkaani` and install all required packages.
+After the environment is created, activate the environment and install the package.
+   
+```bash    
+conda activate pkaani 
+pip install .
+```
+
+
+### **PREREQUISITES:**
+
+* miniconda/anaconda
+
+If `pkaani_env.yaml` is not used, users should make sure the following packages are installed.
+* python>=3.10
+* numpy
+* scipy
+* pytorch
+* torchani==2.2.0
+* scikit-learn==1.6.1
+* ase
+* joblib
+* ambertools
+* setuptools
+		
+### Other notes
+
+pKa-ANI requires PDB files to have H atoms that are added with default ionization states of residues: ASP, GLU, LYS, TYR, HIE. 
+
+Due to this reason, input PDB file(s) are prepared before the calculation of pKa values (output PDB file __'PDBID_pkaani.pdb'__). 
+
+__We would like to warn users, that our models are trained to predict pKa values for apo-proteins. 
+Due to this, any residue that is not an aminoacid is removed from PDB file(s) during the preparation.__
+
+
 
 ## **CITATION**
 
