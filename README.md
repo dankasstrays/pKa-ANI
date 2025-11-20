@@ -1,10 +1,28 @@
 ## INSTALLATION (using PyPI)
 
-Simply use the command `pip install pkaani`. The package requires ambertools which can be installed with the command:
+
+The package requires ambertools which can be installed with the command:
 
 ```bash
+conda create -n pkaani 
 conda install conda-forge::ambertools
 ```
+
+Then, simply use the command below:
+
+```bash
+pip install pkaani
+```
+
+## Python script usage
+The snippet below shows how to use the `calculate_pka` function within a python script - the input argument is a list of strings which are PDB file names in the working directory. Given a list of PDBs titled "1brs.pdb" and "6oge_de.pdb":
+
+```python
+from pkaani.pkaani import calculate_pka as calculate_pkaani
+  
+pKas = calculate_pkaani(["1brs.pdb","6oge_de.pdb"])
+```
+
 
 
 ## INSTALLATION (from source code)
@@ -19,11 +37,11 @@ To install pKa-ANI, navigate to the directory of the source that you've download
 conda env create -f pkaani_env.yaml
 ```
 This will create a conda environment named `pkaani` and install all required packages.
-After the environment is created; 
+After the environment is created, activate the environment and install the package.
    
 ```bash    
 conda activate pkaani 
-python setup.py install
+pip install .
 ```
 
 ### **PREREQUISITES:**
@@ -31,18 +49,16 @@ python setup.py install
 * miniconda/anaconda
 
 If `pkaani_env.yaml` is not used, users should make sure the following packages are installed.
-* python=3.8
+* python>=3.10
 * numpy
 * scipy
 * pytorch
-* torchani=2.2.0
-* scikit-learn=1.0.2
+* torchani==2.2.0
+* scikit-learn==1.6.1
 * ase
 * joblib
 * ambertools
-* setuptools=58.2.0
-
-Other libraries the system may require : os,math,sys,io,csv,getopt,shutil,urllib.request,warnings 
+* setuptools
 		
 ## **USAGE**
 

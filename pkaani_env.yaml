@@ -1,18 +1,17 @@
 name: pkaani
 channels:
-  - rmg
   - conda-forge
   - pytorch
   - defaults
 dependencies:
-  - python==3.8
-  - numpy
+  - python>=3.10
+  - numpy<2
   - scipy
   - pytorch
-  - torchani[version='=2.2.0']
-  - scikit-learn[version='=1.0.2']
+  - torchani[version==2.2.0]
+  - scikit-learn[version==1.6.1]
   - ase
   - joblib
   - ambertools
-  - setuptools[version='=58.2.0']
+  - setuptools
   
